@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
-import Todo from './component/Todo'
+import { Link } from 'react-router';
+import Todo from './component/Todo';
 import {
   addTodo,
   toggleToDo,
@@ -9,7 +9,11 @@ import {
 
 export class TodoContainer extends Component {
 
-  handleAddTodo = text => {
+  static propTypes = {
+    dispatchAddTodo: PropTypes.func.isRequired,
+  };
+
+  handleAddTodo(text) {
     this.props.dispatchAddTodo(text);
   };
 
@@ -18,7 +22,7 @@ export class TodoContainer extends Component {
       <div>
         <Todo
           todo={this.props.todo}
-          handleAddTodo={this.handleAddTodo}
+          handleAddTodo={this.handleAddTodo.bind(this)}
         />
         <Link to='/'>home</Link>
       </div>

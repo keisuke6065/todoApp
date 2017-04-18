@@ -1,7 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import TodoList from './TodoList';
 
 class Todo extends Component {
+
+  static propTypes = {
+    handleAddTodo: PropTypes.func.isRequired,
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
