@@ -248,7 +248,7 @@ function runDevServer(host, port, protocol) {
     // to CSS are currently hot reloaded. JS changes will refresh the browser.
     hot: true,
     // It is important to tell WebpackDevServer to use the same "root" path
-    // as we specified in the config. In development, we always serve from /.
+    // as we specified in the firebase. In development, we always serve from /.
     publicPath: config.output.publicPath,
     // WebpackDevServer is noisy by default so we emit custom message instead
     // by listening to the compiler events with `compiler.plugin` calls above.

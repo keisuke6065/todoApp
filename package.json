@@ -43,6 +43,7 @@
     "whatwg-fetch": "2.0.2"
   },
   "dependencies": {
+    "firebase": "^3.7.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",

@@ -63,7 +63,7 @@ function getServedPath(appPackageJson) {
   return ensureSlash(servedUrl, true);
 }
 
-// config after eject: we're in ./config/
+// firebase after eject: we're in ./firebase/
 module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
