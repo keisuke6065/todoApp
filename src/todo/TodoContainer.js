@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Todo from './component/todo'
+import { Link } from 'react-router'
+import Todo from './component/Todo'
 import {
-  addToDo,
+  addTodo,
   toggleToDo,
-} from './action'
+} from './action';
 
 export class TodoContainer extends Component {
-  state = {
-    text: 'text',
-  };
 
   handleAddTodo = text => {
-    console.log(this.state.text);
     this.props.dispatchAddTodo(text);
   };
 
@@ -23,20 +20,20 @@ export class TodoContainer extends Component {
           todo={this.props.todo}
           handleAddTodo={this.handleAddTodo}
         />
+        <Link to='/'>home</Link>
       </div>
     )};
   }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
-    todo: state.todo
+    todo: state.todo.data
   };
 }
 const mapDispatchToProps = (dispatch) => {
   const dispatchAddTodo = text => {
     console.log('dispatchAddTodo', text);
-    return dispatch(addToDo(text));
+    return dispatch(addTodo(text));
   };
   const dispatchToggleTodo = todo => dispatch(toggleToDo(todo.id));
   return {

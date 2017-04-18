@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TodoList from './TodoList';
 
 class Todo extends Component {
 
@@ -8,11 +9,13 @@ class Todo extends Component {
     this.refs.name.value = '';
   };
 
-  static renderTodo(todo) {
-    return todo.map(todo => (
-        <li key={todo.id}>{todo.text}</li>
-      )
-    );
+  renderTodo(todo) {
+    if (todo.length > 0) {
+      return todo.map(todo => (
+          <li key={todo.id}>{todo.text}</li>
+        )
+      );
+    }
   }
 
   render() {
@@ -24,9 +27,7 @@ class Todo extends Component {
           <input type="text" placeholder="name" ref="name" />
           <input type="submit" value="Todo に追加する" />
         </form>
-        <ul>
-          {Todo.renderTodo(this.props.todo)}
-        </ul>
+        <TodoList todoList={this.props.todo} />
       </div>
     );
   }

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import TodoContainer from './todo/TodoContainer'
+import { Link } from 'react-router';
+
 
 class App extends Component {
   render() {
     return (
-      <TodoContainer />
+        <div>
+          <h1>こんにちは</h1>
+          <Link to='/todo'>todo</Link>
+        </div>
     );
   }
 }
