@@ -22,13 +22,15 @@ let nextTodoId = 0;
 
 // ToDo の追加
 export const addTodo = text => {
-  const todo = {
-    text,
-    completed: false,
-  };
-  const key = ref.push(todo).key;
-  // .catch(error => dispatch(new Error(error)));
-  return finishAddTodo('data', key);
+  return (dispatch, getStatus) => {
+    const todo = {
+      text,
+      completed: false,
+    };
+    const key = ref.push(todo).key;
+    // .catch(error => dispatch(new Error(error)));
+    return dispatch(finishAddTodo('data', key));
+  }
 };
 
 // ToDo の完了／未完了

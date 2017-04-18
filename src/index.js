@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-// import reducer from './todo/reducer'
 import DevTools from './DevTools'
 import App from './App';
 import TodoRoot from './TodoRoot'
@@ -17,10 +17,14 @@ import rootReducer from './rootReducer'
 //   }),
 //   DevTools.instrument(),
 // );
+const enhancer = compose(
+  applyMiddleware(thunk),
+  DevTools.instrument(),
+);
 
 const store = createStore(
   rootReducer,
-  DevTools.instrument(),
+  enhancer,
 );
 
 const history = syncHistoryWithStore(browserHistory, store);
