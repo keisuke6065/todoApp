@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Todo from './component/Todo';
 import {
+  loadTodos,
   addTodo,
   toggleToDo,
 } from './action';
@@ -12,6 +13,11 @@ export class TodoContainer extends Component {
   static propTypes = {
     dispatchAddTodo: PropTypes.func.isRequired,
   };
+
+  componentWillMount() {
+    console.log('willMount');
+    this.props.dispatchFetchTodo();
+  }
 
   handleAddTodo(text) {
     this.props.dispatchAddTodo(text);
@@ -30,17 +36,20 @@ export class TodoContainer extends Component {
   }
 
 function mapStateToProps(state) {
+  console.log(state.todo.data);
   return {
-    todo: state.todo.data
+    todo: state.todo
   };
 }
 const mapDispatchToProps = (dispatch) => {
+  const dispatchFetchTodo = () => dispatch(loadTodos());
   const dispatchAddTodo = text => {
     console.log('dispatchAddTodo', text);
     return dispatch(addTodo(text));
   };
   const dispatchToggleTodo = todo => dispatch(toggleToDo(todo.id));
   return {
+    dispatchFetchTodo,
     dispatchAddTodo,
     dispatchToggleTodo,
   };

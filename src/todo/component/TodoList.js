@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 
 class TodoList extends Component {
 
-  renderTodo(todo) {
-    if (todo.length > 0) {
-      return todo.map(todo => (
-          <li key={todo.id}>{todo.text}</li>
+  renderTodo(todos) {
+    if (todos.length > 0) {
+      return todos.map(todo => (
+          <li key={todo.key}>{todo.text}</li>
         )
       );
     }
@@ -15,7 +15,7 @@ class TodoList extends Component {
     return (
       <div>
         <ul>
-          {this.renderTodo(this.props.todoList)}
+          {this.renderTodo(this.props.todo)}
         </ul>
       </div>
     );

@@ -5,6 +5,7 @@ class Todo extends Component {
 
   static propTypes = {
     handleAddTodo: PropTypes.func.isRequired,
+    todo: PropTypes.arrayOf(),
   };
 
   handleSubmit = (e) => {
@@ -13,10 +14,11 @@ class Todo extends Component {
     this.refs.name.value = '';
   };
 
-  renderTodo(todo) {
-    if (todo.length > 0) {
-      return todo.map(todo => (
-          <li key={todo.id}>{todo.text}</li>
+  renderTodo(todos) {
+    console.log(todos);
+    if (todos.length > 0) {
+      return todos.map(todo => (
+          <li key={todo.key}>{todo.text}</li>
         )
       );
     }
@@ -31,7 +33,7 @@ class Todo extends Component {
           <input type="text" placeholder="name" ref="name" />
           <input type="submit" value="Todo に追加する" />
         </form>
-        <TodoList todoList={this.props.todo} />
+        <TodoList todo={this.props.todo}/>
       </div>
     );
   }

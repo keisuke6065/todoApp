@@ -5,20 +5,31 @@ const ref = firebaseDb.ref('todos');
 
 export const Action = {
   FINISH_LOGIN: 'FINISH_LOGIN',
+  FETCH_TODO: 'FETCH_TODO',
   FINISH_ADD_TODO: 'FINISH_ADD_TODO',
+  TOGGLE_TODO: 'TOGGLE_TODO',
 };
 
 const {
   finishLogin,
+  fetchTodo,
   finishAddTodo,
 } = createActions({
     [Action.FINISH_LOGIN]: (key, value) => ({ [key]: value }),
   },
+  Action.FETCH_TODO,
   Action.FINISH_ADD_TODO,
 );
 
+export function loadTodos() {
+  return (dispatch, getState) => {
+    const state = getState();
+    console.log(state);
+    ref.off();
+    ref.on('value',(snapshot) => {dispatch(fetchTodo(snapshot.val()))});
+  };
+}
 
-let nextTodoId = 0;
 
 // ToDo の追加
 export const addTodo = text => {
@@ -34,9 +45,9 @@ export const addTodo = text => {
 };
 
 // ToDo の完了／未完了
-export const toggleToDo = id => {
+export const toggleToDo = key => {
   return {
     type: 'TOGGLE_TODO',
-    id: id,
+    key: key,
   };
 };
