@@ -56,7 +56,7 @@ export function changeToggleToDo(key) {
     const state = getStatus();
     const todo = state.todo.data.filter(todo => todo.key === key);
     firebaseDb.ref(`todos/${key}`).update({completed: !todo[0].completed});
-    dispatch(toggleTodo(key));
+    return dispatch(toggleTodo(key));
     //return dispatch(toggleTodo('data', key));
   }
 };
@@ -66,5 +66,6 @@ export function deleteTodoFirebase(key) {
     const state = getStatus();
     const todo = state.todo.data.filter(todo => todo.key === key);
     firebaseDb.ref(`todos/${key}`).remove();
+    return dispatch(deleteTodo(key));
   }
 };
