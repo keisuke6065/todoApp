@@ -1,5 +1,5 @@
 export default function todoReducer (state = {
-  data: [],
+  data: []
 }, action) {
   switch (action.type) {
     case 'FETCH_TODO':
@@ -15,24 +15,11 @@ export default function todoReducer (state = {
         });
       }
       console.log([...todos]);
-      return [...todos];
-    case 'ADD_TODO':
-      return {
-        data: state.data.concat({
-          id: action.id,
-          text: action.text,
-          completed: false
-        })
-      };
+      return {data: [...todos]};
+    case 'FINISH_ADD_TODO':
     case 'TOGGLE_TODO':
-      return {
-        data: state.data.map(todo => {
-          if (todo.key !== action.key) {
-            return todo;
-          }
-          return Object.assign({}, todo, {completed: !todo.completed});
-        })
-      };
+    case 'DELETE_TODO':
+      return state;
     default:
       return state;
   }

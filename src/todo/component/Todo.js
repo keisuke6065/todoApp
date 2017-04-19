@@ -5,11 +5,13 @@ class Todo extends Component {
 
   static propTypes = {
     handleAddTodo: PropTypes.func.isRequired,
-    todo: PropTypes.arrayOf(),
+    handleToggleTodo: PropTypes.func.isRequired,
+    handleDeleteTodo: PropTypes.func.isRequired,
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(e);
     this.props.handleAddTodo(this.refs.name.value);
     this.refs.name.value = '';
   };
@@ -28,12 +30,15 @@ class Todo extends Component {
     return (
       <div>
         <h1>TODO</h1>
-        <p>登録</p>
         <form className="commentForm" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="name" ref="name" />
           <input type="submit" value="Todo に追加する" />
         </form>
-        <TodoList todo={this.props.todo}/>
+        <TodoList
+          todo={this.props.todo}
+          handleToggleTodo={this.props.handleToggleTodo}
+          handleDeleteTodo={this.props.handleDeleteTodo}
+        />
       </div>
     );
   }

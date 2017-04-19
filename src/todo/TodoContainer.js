@@ -5,7 +5,8 @@ import Todo from './component/Todo';
 import {
   loadTodos,
   addTodo,
-  toggleToDo,
+  changeToggleToDo,
+  deleteTodoFirebase,
 } from './action';
 
 export class TodoContainer extends Component {
@@ -20,8 +21,19 @@ export class TodoContainer extends Component {
   }
 
   handleAddTodo(text) {
+    console.log(text);
     this.props.dispatchAddTodo(text);
   };
+
+  handleToggleTodo(key) {
+    console.log('handleToggleTodo: start', key);
+    this.props.dispatchToggleTodo(key);
+  }
+
+  handleDeleteTodo(key) {
+    console.log('handleDeleteTodo: start', key);
+    this.props.dispatchDeleteTodo(key);
+  }
 
   render() {
     return (
@@ -29,6 +41,8 @@ export class TodoContainer extends Component {
         <Todo
           todo={this.props.todo}
           handleAddTodo={this.handleAddTodo.bind(this)}
+          handleToggleTodo={this.handleToggleTodo.bind(this)}
+          handleDeleteTodo={this.handleDeleteTodo.bind(this)}
         />
         <Link to='/'>home</Link>
       </div>
@@ -36,9 +50,10 @@ export class TodoContainer extends Component {
   }
 
 function mapStateToProps(state) {
-  console.log(state.todo.data);
+  console.log('mapStateToProps');
+  console.log(state.todo);
   return {
-    todo: state.todo
+    todo: state.todo.data
   };
 }
 const mapDispatchToProps = (dispatch) => {
@@ -47,11 +62,19 @@ const mapDispatchToProps = (dispatch) => {
     console.log('dispatchAddTodo', text);
     return dispatch(addTodo(text));
   };
-  const dispatchToggleTodo = todo => dispatch(toggleToDo(todo.id));
+  const dispatchToggleTodo = key => {
+    console.log('dispatchToggleTodo', key);
+    return dispatch(changeToggleToDo(key));
+  };
+  const dispatchDeleteTodo = key => {
+    console.log('dispatchDeleteTodo', key);
+    return dispatch(deleteTodoFirebase(key));
+  };
   return {
     dispatchFetchTodo,
     dispatchAddTodo,
     dispatchToggleTodo,
+    dispatchDeleteTodo,
   };
 };
 
