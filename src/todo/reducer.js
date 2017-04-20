@@ -1,8 +1,11 @@
+import {Action} from './action';
+import _ from 'lodash';
+
 export default function todoReducer(state = {
   data: []
 }, action) {
   switch (action.type) {
-    case 'FETCH_TODO':
+    case Action.FETCH_TODO:
       let todos = [];
       if (action.payload) {
         Object.keys(action.payload).forEach(key => {
@@ -16,10 +19,22 @@ export default function todoReducer(state = {
       }
       console.log([...todos]);
       return {data: [...todos]};
-    case 'FINISH_ADD_TODO':
-    case 'TOGGLE_TODO':
-    case 'DELETE_TODO':
-      return state;
+    case Action.FINISH_ADD_TODO:
+      const {payload} = action;
+      const concat = state.data.concat(payload.data);
+      return {data: [...concat]};
+    case Action.TOGGLE_TODO:
+      return {
+        data: state.data.map(todo => {
+          if (todo.key !== action.payload) {
+            return todo;
+          }
+          return Object.assign({}, todo, {completed: !todo.completed});
+        })
+      };
+    case Action.DELETE_TODO:
+      const reject = _.reject(state.data, {key: action.payload});
+      return {data: [...reject]};
     default:
       return state;
   }

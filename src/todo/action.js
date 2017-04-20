@@ -11,17 +11,18 @@ export const Action = {
   DELETE_TODO: 'DELETE_TODO',
 };
 
+const keyValueIdentity = (key, value) => ({[key]: value});
 const {
   finishLogin,
-  fetchTodo,
   finishAddTodo,
+  fetchTodo,
   toggleTodo,
   deleteTodo,
 } = createActions({
-    [Action.FINISH_LOGIN]: (key, value) => ({[key]: value}),
+    [Action.FINISH_LOGIN]: keyValueIdentity,
+    [Action.FINISH_ADD_TODO]: keyValueIdentity,
   },
   Action.FETCH_TODO,
-  Action.FINISH_ADD_TODO,
   Action.TOGGLE_TODO,
   Action.DELETE_TODO,
 );
@@ -31,7 +32,7 @@ export function loadTodos() {
     const state = getState();
     console.log(state);
     ref.off();
-    ref.on('value', (snapshot) => {
+    ref.once('value', (snapshot) => {
       dispatch(fetchTodo(snapshot.val()))
     });
   };
@@ -39,8 +40,8 @@ export function loadTodos() {
 
 
 // ToDo の追加
-export const addTodo = text => {
-  return (dispatch, getStatus) => {
+export function addTodo(text) {
+  return (dispatch) => {
     const todo = {
       text,
       completed: false,
@@ -48,7 +49,8 @@ export const addTodo = text => {
     const key = ref.push(todo).key;
     console.log(key);
     // .catch(error => dispatch(new Error(error)));
-    return dispatch(finishAddTodo('data', key));
+    const assign = Object.assign({}, todo, {key: key});
+    return dispatch(finishAddTodo('data', assign));
   }
 };
 
