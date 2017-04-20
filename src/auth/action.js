@@ -40,6 +40,7 @@ export const requestLogin = (email, password) => (dispatch, getStatus) => {
   firebaseAuth.signInWithEmailAndPassword(email, password)
     .then(resp => {
       console.log(resp);
+      console.log('firebaseAuth', resp.uid);
       dispatch(finishLogin('data', resp));
     })
     .catch(err => dispatch(finishLogin(new Error(err.message))));

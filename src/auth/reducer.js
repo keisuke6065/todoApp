@@ -15,7 +15,7 @@ export default (state = {
         return Object.assign({}, state, {
           isFetching: false,
           isLoggedIn: false,
-          token: null,
+          user: null,
           error: {
             message: payload.message,
           },
@@ -26,7 +26,8 @@ export default (state = {
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: true,
-        token: {
+        user: {
+          uid: token.uid,
           accessToken: token.access_token,
           tokenType: token.token_type,
         },
@@ -63,7 +64,7 @@ export default (state = {
       return Object.assign({}, state, {
         isFetching: false,
         isLoggedIn: true,
-        token: {
+        user: {
           accessToken: token.access_token,
           tokenType: token.token_type,
         },

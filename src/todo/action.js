@@ -1,8 +1,6 @@
 import {firebaseDb} from '../core/firebase';
 import {createActions} from 'redux-actions';
 
-const ref = firebaseDb.ref('todos');
-
 export const Action = {
   FINISH_LOGIN: 'FINISH_LOGIN',
   FETCH_TODO: 'FETCH_TODO',
@@ -13,13 +11,11 @@ export const Action = {
 
 const keyValueIdentity = (key, value) => ({[key]: value});
 const {
-  finishLogin,
   finishAddTodo,
   fetchTodo,
   toggleTodo,
   deleteTodo,
 } = createActions({
-    [Action.FINISH_LOGIN]: keyValueIdentity,
     [Action.FINISH_ADD_TODO]: keyValueIdentity,
   },
   Action.FETCH_TODO,
@@ -30,10 +26,9 @@ const {
 export function loadTodos() {
   return (dispatch, getState) => {
     const state = getState();
-    console.log(state);
-    ref.off();
-    ref.once('value', (snapshot) => {
-      dispatch(fetchTodo(snapshot.val()))
+    const id = state.auth.user.uid;
+    return firebaseDb.ref(`todos/${id}`).once('value', (snapshot) => {
+      dispatch(fetchTodo(snapshot.val()));
     });
   };
 }
@@ -41,35 +36,39 @@ export function loadTodos() {
 
 // ToDo の追加
 export function addTodo(text) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const id = state.auth.user.uid;
     const todo = {
       text,
       completed: false,
     };
-    const key = ref.push(todo).key;
-    console.log(key);
-    // .catch(error => dispatch(new Error(error)));
-    const assign = Object.assign({}, todo, {key: key});
-    return dispatch(finishAddTodo('data', assign));
+    return firebaseDb.ref(`todos/${id}`).push(todo).then(resp => {
+      const assign = Object.assign({}, todo, {key: resp.key});
+      dispatch(finishAddTodo('data', assign));
+    }).catch(err => dispatch(finishAddTodo(new Error(err.message))));
   }
 };
 
 // ToDo の完了／未完了
 export function changeToggleToDo(key) {
-  return (dispatch, getStatus) => {
-    const state = getStatus();
+  return (dispatch, getState) => {
+    const state = getState();
+    const id = state.auth.user.uid;
     const todo = state.todo.data.filter(todo => todo.key === key);
-    firebaseDb.ref(`todos/${key}`).update({completed: !todo[0].completed});
-    return dispatch(toggleTodo(key));
-    //return dispatch(toggleTodo('data', key));
+    return firebaseDb.ref(`todos/${id}/${key}`)
+      .update({completed: !todo[0].completed})
+      .then(dispatch(toggleTodo(key)))
+      .catch(err => dispatch(toggleTodo(new Error(err.message))));
   }
 };
 
 export function deleteTodoFirebase(key) {
   return (dispatch, getStatus) => {
     const state = getStatus();
-    const todo = state.todo.data.filter(todo => todo.key === key);
-    firebaseDb.ref(`todos/${key}`).remove();
-    return dispatch(deleteTodo(key));
+    const id = state.auth.user.uid;
+    return firebaseDb.ref(`todos/${id}/${key}`).remove()
+      .then(dispatch(deleteTodo(key)))
+      .catch(err => dispatch(deleteTodo(new Error(err.message))));
   }
 };
