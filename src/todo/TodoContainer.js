@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import Todo from './component/Todo';
 import {
   loadTodos,
@@ -8,11 +8,16 @@ import {
   changeToggleToDo,
   deleteTodoFirebase,
 } from './action';
+import { forceLogout } from '../auth/action';
 
 export class TodoContainer extends Component {
 
   static propTypes = {
+    dispatchFetchTodo: PropTypes.func.isRequired,
     dispatchAddTodo: PropTypes.func.isRequired,
+    dispatchToggleTodo: PropTypes.func.isRequired,
+    dispatchDeleteTodo: PropTypes.func.isRequired,
+    dispatchLogout: PropTypes.func.isRequired,
   };
 
   componentWillMount() {
@@ -35,6 +40,14 @@ export class TodoContainer extends Component {
     this.props.dispatchDeleteTodo(key);
   }
 
+  handleLogout() {
+    this.props.dispatchLogout();
+  }
+
+  linkTo(path) {
+    browserHistory.push(path);
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +57,8 @@ export class TodoContainer extends Component {
           handleToggleTodo={this.handleToggleTodo.bind(this)}
           handleDeleteTodo={this.handleDeleteTodo.bind(this)}
         />
-        <Link to='/'>home</Link>
+        <button onClick={() => this.linkTo('/')}>ホーム</button>
+        <button onClick={this.handleLogout.bind(this)}>ログアウト</button>
       </div>
     )};
   }
@@ -70,11 +84,14 @@ const mapDispatchToProps = (dispatch) => {
     console.log('dispatchDeleteTodo', key);
     return dispatch(deleteTodoFirebase(key));
   };
+  const dispatchLogout = () => dispatch(forceLogout("ログアウトボタン経由でーーす"));
+
   return {
     dispatchFetchTodo,
     dispatchAddTodo,
     dispatchToggleTodo,
     dispatchDeleteTodo,
+    dispatchLogout,
   };
 };
 
