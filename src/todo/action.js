@@ -1,5 +1,5 @@
-import { firebaseDb } from '../core/firebase';
-import { createActions } from 'redux-actions';
+import {firebaseDb} from '../core/firebase';
+import {createActions} from 'redux-actions';
 
 const ref = firebaseDb.ref('todos');
 
@@ -18,7 +18,7 @@ const {
   toggleTodo,
   deleteTodo,
 } = createActions({
-    [Action.FINISH_LOGIN]: (key, value) => ({ [key]: value }),
+    [Action.FINISH_LOGIN]: (key, value) => ({[key]: value}),
   },
   Action.FETCH_TODO,
   Action.FINISH_ADD_TODO,
@@ -31,7 +31,9 @@ export function loadTodos() {
     const state = getState();
     console.log(state);
     ref.off();
-    ref.on('value',(snapshot) => {dispatch(fetchTodo(snapshot.val()))});
+    ref.on('value', (snapshot) => {
+      dispatch(fetchTodo(snapshot.val()))
+    });
   };
 }
 

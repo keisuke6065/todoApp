@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
 import Login from './Login';
-import { requestLogin, requestRegister } from '../action';
+import {requestLogin, requestRegister} from '../action';
 
 class Anonymous extends Component {
   static propTypes = {
@@ -37,8 +37,8 @@ class Anonymous extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { auth } = state;
-  return { auth };
+  const {auth} = state;
+  return {auth};
 };
 
 const mapDispatchToProps = (dispatch) => {

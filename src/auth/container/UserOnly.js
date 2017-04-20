@@ -15,6 +15,7 @@ class UserOnly extends Component {
   }
 
   componentWillMount() {
+    console.log('aaaaajjijiji');
     UserOnly.transfer(this.props);
   }
 

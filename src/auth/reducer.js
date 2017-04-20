@@ -1,4 +1,4 @@
-import { Action } from './action';
+import {Action} from './action';
 
 export default (state = {
   isFetching: false,
@@ -10,7 +10,7 @@ export default (state = {
         isFetching: true,
       });
     case Action.FINISH_LOGIN: {
-      const { payload, error } = action;
+      const {payload, error} = action;
       if (error) {
         return Object.assign({}, state, {
           isFetching: false,
@@ -47,7 +47,7 @@ export default (state = {
       });
 
     case Action.FINISH_REGISTER: {
-      const { payload, error } = action;
+      const {payload, error} = action;
       if (error) {
         return Object.assign({}, state, {
           isFetching: false,

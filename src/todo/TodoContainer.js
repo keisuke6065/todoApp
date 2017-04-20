@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {browserHistory} from 'react-router';
 import Todo from './component/Todo';
 import {
   loadTodos,
@@ -8,7 +8,7 @@ import {
   changeToggleToDo,
   deleteTodoFirebase,
 } from './action';
-import { forceLogout } from '../auth/action';
+import {forceLogout} from '../auth/action';
 
 export class TodoContainer extends Component {
 
@@ -60,8 +60,9 @@ export class TodoContainer extends Component {
         <button onClick={() => this.linkTo('/')}>ホーム</button>
         <button onClick={this.handleLogout.bind(this)}>ログアウト</button>
       </div>
-    )};
-  }
+    )
+  };
+}
 
 function mapStateToProps(state) {
   console.log('mapStateToProps');

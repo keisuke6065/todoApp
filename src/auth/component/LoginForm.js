@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 const defaultPStyle = {
   color: '#fff',
@@ -117,9 +117,9 @@ class LoginForm extends Component {
       <div>
         <p style={defaultPStyle}>Login</p>
         <form onSubmit={e => this.handleSubmit(e)}>
-          <input type="text" id="name" placeholder="Email" style={defaultInputStyle} />
+          <input type="text" id="name" placeholder="Email" style={defaultInputStyle}/>
           <br />
-          <input type="password" id="password" placeholder="Password" style={defaultInputStyle} />
+          <input type="password" id="password" placeholder="Password" style={defaultInputStyle}/>
           {this.renderError()}
           <br />
           {this.renderButtonRow()}

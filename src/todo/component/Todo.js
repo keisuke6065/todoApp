@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import TodoList from './TodoList';
 
 class Todo extends Component {
@@ -31,8 +31,8 @@ class Todo extends Component {
       <div>
         <h1>TODO</h1>
         <form className="commentForm" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="name" ref="name" />
-          <input type="submit" value="Todo に追加する" />
+          <input type="text" placeholder="name" ref="name"/>
+          <input type="submit" value="Todo に追加する"/>
         </form>
         <TodoList
           todo={this.props.todo}

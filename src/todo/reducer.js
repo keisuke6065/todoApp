@@ -1,11 +1,11 @@
-export default function todoReducer (state = {
+export default function todoReducer(state = {
   data: []
 }, action) {
   switch (action.type) {
     case 'FETCH_TODO':
       let todos = [];
-      if (action.payload){
-        Object.keys(action.payload).forEach(key =>{
+      if (action.payload) {
+        Object.keys(action.payload).forEach(key => {
           let todo = action.payload[key];
           todos.push({
             key: key,

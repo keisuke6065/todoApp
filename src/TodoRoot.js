@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import TodoContainer from './todo/TodoContainer'
 
 class TodoRoot extends Component {
