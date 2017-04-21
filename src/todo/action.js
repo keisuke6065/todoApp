@@ -26,10 +26,12 @@ const {
 export function loadTodos() {
   return (dispatch, getState) => {
     const state = getState();
-    const id = state.auth.user.uid;
-    return firebaseDb.ref(`todos/${id}`).once('value', (snapshot) => {
-      dispatch(fetchTodo(snapshot.val()));
-    });
+    if (state && state.auth && state.auth.user && state.auth.user.uid) {
+      const id = state.auth.user.uid;
+      return firebaseDb.ref(`todos/${id}`).once('value', (snapshot) => {
+        dispatch(fetchTodo(snapshot.val()));
+      });
+    }
   };
 }
 

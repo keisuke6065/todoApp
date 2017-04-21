@@ -2,15 +2,22 @@ import React from 'react';
 import {render} from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
-import {Provider} from 'react-redux'
-import {Router, Route, Redirect, IndexRedirect, browserHistory} from 'react-router';
+import {Provider} from 'react-redux';
+import {Router, Route, IndexRedirect, Redirect, browserHistory} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
-import DevTools from './DevTools'
-import TodoRoot from './TodoRoot'
-import rootReducer from './rootReducer'
-import UserOnly from './auth/container/UserOnly'
+import DevTools from './DevTools';
+import TodoRoot from './todo/TodoContainer';
+import rootReducer from './rootReducer';
+import UserOnly from './auth/container/UserOnly';
 import Anonymous from './auth/container/Anonymous';
 
+// const store = createStore(
+//   combineReducers({
+//     reducer,
+//     routing: routerReducer
+//   }),
+//   DevTools.instrument(),
+// );
 const enhancer = compose(
   applyMiddleware(thunk),
   DevTools.instrument(),

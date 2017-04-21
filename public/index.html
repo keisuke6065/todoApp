@@ -4,6 +4,68 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <style>
+      body {
+        font-style: normal;
+        font-variant-ligatures: normal;
+        font-variant-caps: normal;
+        font-variant-numeric: normal;
+        font-weight: 300;
+        font-stretch: normal;
+        font-size: 14px;
+        line-height: 1.4em;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #f5f5f5;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+        max-width: 550px;
+        margin: 0 auto;
+      }
+      .paper {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      footer.paper-foot {
+        position: relative;
+      }
+
+      footer.paper-foot:before {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 50px;
+        overflow: hidden;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+      }
+      li {
+        list-style: none;
+      }
+      ::-webkit-input-placeholder {
+        color: #e6e6e6;
+      }
+      :-moz-placeholder {
+        color: #e6e6e6; opacity: 1;
+      }
+      ::-moz-placeholder {
+        color: #e6e6e6; opacity: 1;
+      }
+      :-ms-input-placeholder {
+        color: #e6e6e6;
+      }
+      input:checked:after {
+        content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+      }
+      input:after {
+        content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+      }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
