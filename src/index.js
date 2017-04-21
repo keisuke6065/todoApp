@@ -46,7 +46,6 @@ render(
           </Route>
           <Redirect from="*" to="/login"/>
         </Route>
-        <Route path="/login" component={Anonymous}/>
       </Router>
       <DevTools />
     </div>
